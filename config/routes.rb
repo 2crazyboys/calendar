@@ -3,6 +3,8 @@ Calendar::Application.routes.draw do
   root to: "home#index"
   resources :events
 
+  get '/calendar/:type/template'  => "calendars#template"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

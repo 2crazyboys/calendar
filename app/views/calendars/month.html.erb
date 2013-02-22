@@ -1,0 +1,29 @@
+<div ng-controller="MonthCalendarController" ng-init="loadEvents()">
+  <table border="1">
+    <tr>
+      <th>Segunda</th>
+      <th>Terça</th>
+      <th>Quarta</th>
+      <th>Quinta</th>
+      <th>Sexta</th>
+      <th>Sábado</th>
+      <th>Domingo</th>
+    </tr>
+    
+    <% day = 0 %>
+    <% (1..5).each do |line|%>
+      <tr>
+        <% (1..7).each do |columns| %>
+          <td ng-click="addEvent()">
+            <div class="<%= line * columns%>">
+              <span> <%= day += 1 %> </span>
+              {{ events[0].title }}
+            <div>
+            
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
