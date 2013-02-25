@@ -11,4 +11,9 @@
 // GO AFTER THE REQUIRES BELOW.
 //= require angular
 //= require angular-resource
+//= require app/calendar
+//= require controllers/calendar_controller
+//= require controllers/event_controller
+//= require services/calendar_service
+//= require services/event_service
 //= require_tree .
