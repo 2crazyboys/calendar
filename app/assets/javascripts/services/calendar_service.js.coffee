@@ -1,6 +1,6 @@
 app = angular.module("Scheduler")
-app.factory "Calendar", () ->
-    return { month: new MonthCalendar(moment().month() + 1, moment().year()) }
+app.factory "calendarService", () ->
+    return new MonthCalendar(moment().month() + 1, moment().year())
 
 
 class Day
@@ -11,9 +11,15 @@ class Day
   id: ()->
     @_id
 
+  date: () ->
+    @date.format("DD/MM/YYYY")
+
   addEvent: (event) ->
     @events.push(event)
 
+  public: () ->
+    id: @id()
+    date: @date.format("DD/MM/YYYY")
 
 
 class MonthCalendar
@@ -28,8 +34,8 @@ class MonthCalendar
   build_calendar: () ->
     @build_previous [@start_of_week...0]
     @build_actual [0...moment(@current_month).endOf('month').date()]
-    table_size = @lines() * @columns() 
-    remaining = table_size - @table.length
+    table_size = @lines().length * @columns().length 
+    remaining = table_size - @indexer.length
     @build_forward [0...remaining]
     return
   
@@ -56,14 +62,21 @@ class MonthCalendar
       @table[slot.id()] = slot
       @indexer.push slot.id()
 
+  dayFrom: (line, column) ->
+    id  = @indexer[@index(line, column)]
+    @table[id]
+
   eventsFrom: (line, column) ->
     id  = @indexer[@index(line, column)]
     day = @table[id]
     return [] unless day?
     day.events
 
+  day: (id) ->
+    @table[id]
+
   addEvent: (event) ->
-    day = moment(event.date, "DD/MM/YYYY").format(@format)
+    day = moment(event.date, "YYYY-MM-DD").format(@format)
     @table[day].addEvent event
 
   index: (line, column) ->

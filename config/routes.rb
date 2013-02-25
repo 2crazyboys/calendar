@@ -1,9 +1,12 @@
 Calendar::Application.routes.draw do
 
   root to: "home#index"
+  
   resources :events
-
-  get '/calendar/:type/template'  => "calendars#template"
+  get '/events/date/:date' => "events#date"
+  get '/events/from/:from' => "events#from"
+  get '/events/to/:to' => "events#to"
+  get '/events/from/:from/to/:to' => "events#between"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

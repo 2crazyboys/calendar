@@ -11,14 +11,13 @@
         <th>Sexta</th>
         <th>Sábado</th>
       </tr>
-    
-        <tr ng-repeat="line in lines()">
-            <td class="day" ng-click="registerEvent(line, column)" ng-repeat="column in columns()">
-              <li ng-repeat="event in eventsByDay(line, column)">
-              {{ event.title }}
-              </li>
-            </td>
-        </tr>
+      <tr ng-repeat="line in lines()">
+        <td class="day" ng-click="registerEvent(line, column)" ng-repeat="column in columns()">
+          <li ng-repeat="event in eventsByDay(line, column)">
+            {{ event.name }}
+          </li>
+        </td>
+      </tr>
     </table>
   </div>
 
