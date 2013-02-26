@@ -1,0 +1,21 @@
+<table border="2">
+  <tr>
+    <th>Domingo</th>
+    <th>Segunda</th>
+    <th>Terça</th>
+    <th>Quarta</th>
+    <th>Quinta</th>
+    <th>Sexta</th>
+    <th>Sábado</th>
+  </tr>
+  <tr ng-repeat="week in weeks()">
+    <td class="day" ng-repeat="day in week.days">
+      <strong ng-click="showEvents(day.fdate())">{{day.fdate()}}</strong>
+      <div>
+        <li ng-repeat="event in day.events">
+          {{ event.name }}
+        </li>
+      </div>
+    </td>
+  </tr>
+</table>

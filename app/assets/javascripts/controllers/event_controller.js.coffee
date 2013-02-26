@@ -8,9 +8,5 @@ class @EventCrontroller
 
 class @EventListController 
   constructor: (@$scope, $routeParams, calendarService) ->
-    day = calendarService.day($routeParams.day)
-    @$scope.day = day.public()
-    @$scope.Add = () ->
-       calendarService.addEvent $scope.event
-
+    @$scope.day = calendarService.fetchDay($routeParams.day)   
     

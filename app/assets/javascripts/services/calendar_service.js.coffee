@@ -1,89 +1,115 @@
 app = angular.module("Scheduler")
 app.factory "calendarService", () ->
-    return new MonthCalendar(moment().month() + 1, moment().year())
+    return new Manager
 
 
 class Day
-  constructor: (@date, @format="YYYYMMDD") ->
-    @_id = @date.format(@format)
+  @format="YYYY-MM-DD" 
+  constructor: (@date, @format="YYYY-MM-DD") ->
+    @_id = moment(@date).format(@format)
     @events = []
+    @moment_date = moment(@date)
 
   id: ()->
     @_id
 
-  date: () ->
-    @date.format("DD/MM/YYYY")
+  fdate: (format) ->
+    format ?= @format
+    @moment_date.format(format)
 
-  addEvent: (event) ->
+  add_event: (event) ->
     @events.push(event)
 
-  public: () ->
+  to_json: () ->
     id: @id()
-    date: @date.format("DD/MM/YYYY")
+    date: @moment_date.format(@format)
 
 
-class MonthCalendar
-  constructor: (month, year) ->
-    @format="YYYYMMDD"
-    @current_month = moment("#{month}/#{year}", 'M/YYYY').startOf('month')
-    @start_of_week = @current_month.day()
-    @indexer = [] 
-    @table = {}
-    @build_calendar()
+class Week
+  constructor: (week_of_year) ->
+    @week_of_year = week_of_year
+    @days = []
+    @build_week(week_of_year)
+    @build_index()
+    @inspect()
 
-  build_calendar: () ->
-    @build_previous [@start_of_week...0]
-    @build_actual [0...moment(@current_month).endOf('month').date()]
-    table_size = @lines().length * @columns().length 
-    remaining = table_size - @indexer.length
-    @build_forward [0...remaining]
-    return
   
-  build_previous: (range) ->
-    for decrement in range
-      day = moment(@current_month).subtract('days', decrement)
-      slot = new Day(day)
-      @table[slot.id()] = slot
-      @indexer.push slot.id()
+  inspect: () ->
+    console.log " ---------- WEEKS -----------"
+    console.log "week day - #{@week_of_year}"
+    console.log @days
 
-  build_actual: (range) ->
-    for actual in range
-      day = moment(@current_month).add('days',actual)
-      slot = new Day(day)
-      @table[slot.id()] = slot
-      @indexer.push slot.id()
+  find: (date) ->
+    @index[date]
+
+  build_index: () ->
+    @index = {}
+    _.each @days, (day) =>
+      @index[day.fdate()] = day
+
+  build_week: () ->
+    begin_of_week = moment().week(@week_of_year).startOf('week')
+    for incr in [1..7]
+      @days.push new Day(moment(begin_of_week).add('days',incr).toDate())
+  
+  getDay: (date) ->
+    _date = date
+    if date instanceof Date
+      _date = moment(date).format(Day.format)
+    _day = _.find @days, (day) ->
+      day.fdate() == _date
+    _day
 
 
-  build_forward: (range) ->
-    next_month = moment(@current_month).add('month', 1)
-    for forward in range
-      day = next_month.add('days',forward)
-      slot = new Day(day)
-      @table[slot.id()] = slot
-      @indexer.push slot.id()
 
-  dayFrom: (line, column) ->
-    id  = @indexer[@index(line, column)]
-    @table[id]
+class CalendarPage
+  constructor: (month, year) ->
+    @weeks = []
+    begin = moment("01/#{month}/#{year}",'dd/M/YYYY').startOf('month').weeks()
+    end   = moment("28/#{month}/#{year}",'dd/M/YYYY').endOf('month').weeks()
+    @build_weeks([begin..end])
 
-  eventsFrom: (line, column) ->
-    id  = @indexer[@index(line, column)]
-    day = @table[id]
-    return [] unless day?
-    day.events
+  first_week: () ->
+    [first, last...] = @weeks
+    first
 
-  day: (id) ->
-    @table[id]
+  last_week: () ->
+    [first, mid..., last] = @weeks
+    last
 
-  addEvent: (event) ->
-    day = moment(event.date, "YYYY-MM-DD").format(@format)
-    @table[day].addEvent event
+  build_weeks: (week_range) ->
+    _.each week_range, (week_day) =>
+      @weeks.push new Week(week_day)
 
-  index: (line, column) ->
-    (line * @columns().length) + column
+  day: (date) ->
+    _day = null
+    _.find @weeks, (week) ->
+      _day = week.find date
+    _day || Day.new()
 
-  columns:() ->
-    [0..6]
-  lines: () ->
-    l = Math.ceil (@start_of_week + moment(@current_month).endOf('month').date()) / 7
-    [0..(l-1)]
+
+
+class Manager
+  setup: (month, year) ->
+    @page = new CalendarPage(month, year)
+
+  fetchDay: (date) ->
+    @page.day(date)
+
+  addEvent: (date, event) ->
+    day = @page.day(date)
+    day.add_event(event)
+
+  weeks: () ->
+    console.log @page.weeks
+    @page.weeks 
+
+  first_day: () ->
+    week = @page.first_week()
+    [first, mid..., last] = week.days
+    last.fdate()
+
+  last_day: () ->
+    last_week = @page.last_week()
+    [x1, xm..., last_day] = last_week.days
+    last_day.fdate()

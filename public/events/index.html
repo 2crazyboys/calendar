@@ -1,0 +1,7 @@
+<div>
+  <p>Listing all events to {{ day.fdate() }}<p>
+  <li ng-repeat="event in day.events">
+    {{event.name}}
+    {{event.description}}
+  </li>
+</div>

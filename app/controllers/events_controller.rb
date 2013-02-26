@@ -8,26 +8,26 @@ class EventsController < ApplicationController
 
   #GET /events/DDMMYYY
   def date
-    date =  Date.strptime(params[:date], "%m%d%Y")
+    date =  Date.strptime(params[:date],"%Y-%m-%d")
     render json: Event.where(date: date)
   end
 
   # GET /events/from/:from/to/:to
-  def between 
-    from  =  Date.strptime(params[:from], "%m%d%Y")
-    to    =  Date.strptime(params[:to], "%m%d%Y")
+  def between
+    from  =  Date.strptime(params[:from], "%Y-%m-%d")
+    to    =  Date.strptime(params[:to],   "%Y-%m-%d")
     events = Event.between from, to
     render json: events
   end
 
   def from
-    from  =  Date.strptime(params[:from], "%m%d%Y")
+    from  =  Date.strptime(params[:from], "%Y-%m-%d")
     events = Event.gte from
     render json: events
   end
 
   def to
-    to  =  Date.strptime(params[:to], "%m%d%Y")
+    to  =  Date.strptime(params[:to], "%Y-%m-%d")
     events = Event.lte to
     render json: events
   end

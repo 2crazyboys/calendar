@@ -1,14 +1,14 @@
 angular.module "Scheduler", ["ngResource"], ($routeProvider) ->
   $routeProvider.when(
-      '/calendar/:day/event/new', 
+      '/calendar/month/:month/:year/',
+      controller: MonthController
+      templateUrl: '/calendar/month.html')
+    .when(
+      '/calendar/:day/events',
       controller: EventListController 
-      templateUrl: '/events')
-
-    # .when(
-    #   '/calendar/:day/events/new', 
-    #   controller: EventCreateController 
-    #   templateUrl: '/events/new')
-  
+      templateUrl: '/events/index.html')
+    .otherwise( {redirectTo: "/calendar/month/#{moment().month() + 1 || 1}/#{moment().year()}" })
+    
     # .when(
     #   '/calendar/:day/events/:id', 
     #   controller: EventEditController 
