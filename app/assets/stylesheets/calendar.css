@@ -28,9 +28,8 @@
    font-size: 80%;
    text-align: left;
    }
-   .birthday {
-   background-color: #ECE;
-   }
+
    .weekend {
-   background-color: #F3F3F3;
+      background: gray;
+      background-color: #F3F3F3;
    }
