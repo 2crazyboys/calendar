@@ -33,7 +33,6 @@ class Week
     @build_index()
     @inspect()
 
-  
   inspect: () ->
     console.log " ---------- WEEKS -----------"
     console.log "week day - #{@week_of_year}"
@@ -92,6 +91,8 @@ class CalendarPage
 class Manager
   setup: (month, year) ->
     @page = new CalendarPage(month, year)
+    @month = month
+    @year  = year
 
   fetchDay: (date) ->
     @page.day(date)
@@ -113,3 +114,12 @@ class Manager
     last_week = @page.last_week()
     [x1, xm..., last_day] = last_week.days
     last_day.fdate()
+
+  current_month: () ->
+    @month
+
+   current_year: () ->
+    @year
+
+
+

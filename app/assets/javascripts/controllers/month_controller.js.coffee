@@ -18,4 +18,26 @@ class @MonthController
     @$scope.weeks = () =>
       @calendar.weeks()
 
+    @$scope.month_name = () ->
+      moment("01/#{calendar.current_month()}/#{calendar.current_year()}",'dd/M/YYYY').format("MMMM")
+
+    @$scope.previousMonth = () =>
+      date = sum_months("months", -1)
+      @$location.path "/calendar/month/#{date.months() + 1}/#{date.years()}/"
+
+    @$scope.today = () =>
+      current_month = moment().month()
+      current_year  = moment().year()
+      @$location.path "/calendar/month/#{current_month + 1}/#{current_year}/"
+
+    @$scope.nextMonth = () =>
+      date = sum_months("months", 1)
+      @$location.path "/calendar/month/#{date.month() + 1}/#{date.years()}/"
+
+    sum_months = (month_or_year, number) =>
+      current_month = calendar.current_month() 
+      current_year  = calendar.current_year()
+      date = moment("01/#{current_month}/#{current_year}",'dd/M/YYYY').add(month_or_year, number)
+
+
 
