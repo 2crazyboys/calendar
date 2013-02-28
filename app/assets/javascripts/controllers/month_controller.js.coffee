@@ -18,8 +18,7 @@ class @MonthController
     @$scope.weeks = () =>
       @calendar.weeks()
 
-    @$scope.month_name = () ->
-      moment("01/#{calendar.current_month()}/#{calendar.current_year()}",'dd/M/YYYY').format("MMMM")
+    @$scope.month_name = moment("01/#{calendar.current_month()}/#{calendar.current_year()}",'dd/M/YYYY').format("MMMM")
 
     @$scope.previousMonth = () =>
       date = sum_months("months", -1)
