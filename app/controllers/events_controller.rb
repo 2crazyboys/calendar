@@ -6,6 +6,13 @@ class EventsController < ApplicationController
     render json: Event.all
   end
 
+  #POST /events
+  def create
+    event = Event.new(params[:event])
+    event.save
+    render json: event
+  end
+
   #GET /events/DDMMYYY
   def date
     date =  Date.strptime(params[:date],"%Y-%m-%d")

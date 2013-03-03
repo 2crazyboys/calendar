@@ -1,7 +1,26 @@
 <div>
   <p>Listing all events to {{ day.fdate() }}<p>
-  <li ng-repeat="event in day.events">
-    {{event.name}}
-    {{event.description}}
+  <li ng-repeat="event in day.events" open-dialog>
+    <p ng-model="name">{{event.name}}</p>
+    <p ng-model="description">{{event.description}}</p>
   </li>
+</div>
+ 
+<button open-dialog class="btn">Add new Event</button>
+
+<div id="eventModal" class="modal hide fade" ng-controller="EventModalController" tabindex="-1" role="dialog">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+	  <label>Name</label>
+	  <input type="text" ng-model="name" />
+	  <label>Description</label>
+	  <input type="text" ng-model="description" />
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button id="saveEventModal" class="btn btn-primary" data-dismiss="modal" ng-click="AddEvent()">Save changes</button>
+  </div>
 </div>

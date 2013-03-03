@@ -9,6 +9,8 @@
 //
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
+//= require jquery
+//= require jquery_ujs
 //= require angular
 //= require angular-resource
 //= require app/calendar
@@ -16,4 +18,5 @@
 //= require controllers/event_controller
 //= require services/calendar_service
 //= require services/event_service
+//= require directives/event_modal_directive
 //= require_tree .
