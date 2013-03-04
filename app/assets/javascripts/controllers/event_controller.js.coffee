@@ -10,7 +10,7 @@ class @EventListController
     @$scope.day = calendarService.fetchDay($routeParams.day)
     
 class @EventModalController
-	constructor: (@$scope, @$routeParams, @$location, @calendarService, @eventService) ->
+	constructor: (@$scope, @$location, @calendarService, @eventService) ->
 		@define_methods()
 
 	define_methods: ->
@@ -18,8 +18,6 @@ class @EventModalController
 
 		@$scope.AddEvent = () =>
 			@eventService.save(name: @$scope.name, description: @$scope.description, date: @$routeParams.day)
-			angular.element('#eventModal').on "hide", =>
-					@$location.path "/calendar/#{@$routeParams.day}/eventss"
 			
 	setModel: (data) ->
 		@$scope.$apply => 
