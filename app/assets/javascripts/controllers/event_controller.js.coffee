@@ -5,9 +5,13 @@ class @EventController
     @$scope.Add = () ->
        calendarService.addEvent $scope.event
 
+EventController.$inject = ["$scope", "$routeParams", "calendarService"]
+
 class @EventListController 
   constructor: (@$scope, $routeParams, calendarService) ->
     @$scope.day = calendarService.fetchDay($routeParams.day)
+
+EventListController.$inject = ["$scope", "$routeParams", "calendarService"]    
     
 class @EventModalController
 	constructor: (@$scope, @$location, @calendarService, @eventService) ->
@@ -23,3 +27,5 @@ class @EventModalController
 		@$scope.$apply => 
 			@$scope.name = data.name
 			@$scope.description = data.description
+
+EventModalController.$inject = ["$scope", "$location", "calendarService", "eventService"]

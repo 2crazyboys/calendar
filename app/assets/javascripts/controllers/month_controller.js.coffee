@@ -38,5 +38,7 @@ class @MonthController
       current_year  = calendar.current_year()
       date = moment("01/#{current_month}/#{current_year}",'dd/M/YYYY').add(month_or_year, number)
 
+MonthController.$inject = ["$scope", "$location", "eventService", "$routeParams", "calendarService"]
+
 
 

@@ -1,6 +1,6 @@
 app = angular.module("Scheduler")
 
-app.factory "eventService", ($resource) ->
+eventService = app.factory "eventService", ($resource) ->
   class RestService 
     constructor: () ->
       @resource = $resource("/events/:id/:date_path/:date/:from_path/:from/:to_path/:to", 
@@ -22,7 +22,7 @@ app.factory "eventService", ($resource) ->
  
   return new RestService
 
-
+eventService.$inject = ["$resource"]
 
 
 
