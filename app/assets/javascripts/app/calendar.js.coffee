@@ -1,4 +1,4 @@
-scheduler = angular.module "Scheduler", ["ngResource"], ($routeProvider) ->
+scheduler = angular.module "Scheduler", ["ngResource"], ["$routeProvider", ($routeProvider) ->
   $routeProvider.when(
       '/calendar/month/:month/:year/',
       controller: MonthController
@@ -19,5 +19,4 @@ scheduler = angular.module "Scheduler", ["ngResource"], ($routeProvider) ->
     #   controller: MonthController
     #   templateUrl: '/calendar/month/table'
     # )
-
-scheduler.$inject = ["$routeProvide"]
+]

@@ -1,6 +1,6 @@
 app = angular.module("Scheduler")
 
-eventService = app.factory "eventService", ($resource) ->
+eventService = app.factory "eventService", ["$resource", ($resource) ->
   class RestService 
     constructor: () ->
       @resource = $resource("/events/:id/:date_path/:date/:from_path/:from/:to_path/:to", 
@@ -21,8 +21,4 @@ eventService = app.factory "eventService", ($resource) ->
       @resource.between {from: from, to: to}, callback
  
   return new RestService
-
-eventService.$inject = ["$resource"]
-
-
-
+]
