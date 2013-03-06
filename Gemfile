@@ -7,10 +7,10 @@ gem 'rails', '3.2.12'
 
 gem 'pg'
 gem 'angularjs-rails'
+gem "faker"
 
 
 group :development do
-  gem "faker"
   gem "pry"
   gem "pry-rails"
 end
