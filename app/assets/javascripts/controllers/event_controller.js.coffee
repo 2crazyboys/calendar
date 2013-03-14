@@ -21,11 +21,13 @@ class @EventModalController
 		@$scope.setModel = @setModel
 
 		@$scope.AddEvent = () =>
-			@eventService.save(name: @$scope.name, description: @$scope.description, date: @$routeParams.day)
+			@calendarService.addEvent(@$scope.date, { name: @$scope.name, description: @$scope.description, date: @$scope.date })
+			@eventService.save(name: @$scope.name, description: @$scope.description, date: @$scope.date)
 			
 	setModel: (data) ->
 		@$scope.$apply => 
 			@$scope.name = data.name
 			@$scope.description = data.description
+			@$scope.date = data.date
 
 EventModalController.$inject = ["$scope", "$location", "calendarService", "eventService"]

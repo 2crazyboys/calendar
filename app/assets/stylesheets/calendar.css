@@ -1,35 +1,43 @@
-
-  table {
+table {
    border: 1px solid #999;
    border-collapse: collapse;
    font-family: Georgia, Times, serif;
-   }
-   th {
+}
+
+th {
    border: 1px solid #999;
    font-size: 70%;
    text-transform: uppercase;
-   }
-   td {
+}
+
+td {
    border: 1px solid #999;
    height: 6em;
    width: 10em;
    padding: 5px;
    vertical-align: top;
-   }
-   caption {
+}
+
+caption {
    font-size: 300%;
    font-style: italic;
-   }
-   .day {
+}
+
+.day {
    text-align: left;
-   }
-   .notes {
+}
+
+.notes {
    font-family: Arial, Helvetica, sans-serif;
    font-size: 80%;
    text-align: left;
-   }
+}
 
-   .weekend {
-      background: gray;
-      background-color: #F3F3F3;
-   }
+.weekend {
+   background: gray;
+   background-color: #F3F3F3;
+}
+
+.showModal {
+   height: 60px;
+}

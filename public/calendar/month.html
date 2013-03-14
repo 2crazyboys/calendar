@@ -28,10 +28,12 @@
   <tr ng-repeat="week in weeks()">
     <td class="day" ng-repeat="day in week.days">
       <strong ng-click="showEvents(day.fdate())">{{day.fdate()}}</strong>
-      <div open-dialog="day.fdate()">
+      <div open-dialog="{{day.fdate()}}" class="showModal">
+      <ul id="dayEventsNames-{{day.fdate()}}">
         <li ng-repeat="event in day.events">
           {{ event.name }}
         </li>
+      </ul>
       </div>
     </td>
   </tr>
@@ -47,6 +49,7 @@
     <input type="text" ng-model="name" />
     <label>Description</label>
     <input type="text" ng-model="description" />
+    <input type="hidden" ng-model="date" />
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

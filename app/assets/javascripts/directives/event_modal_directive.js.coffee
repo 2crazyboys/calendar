@@ -3,10 +3,9 @@ angular.module("Scheduler").directive "openDialog", ->
   	restrict: "A",
   	link: (scope, element, attrs) ->
     openDialog = ->
-      console.log scope.$eval(attrs.openDialog)
       modal = angular.element("#eventModal")
       ctrl = modal.controller()
-      ctrl.setModel(name: "Joao", description: "Thiago")
+      ctrl.setModel(name: "Name", description: "Description", date: attrs.openDialog)
       modal.modal("show")
     element.bind("click", openDialog)
 
