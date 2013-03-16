@@ -39,6 +39,7 @@ class @EventEditController
 
 	define_methods: ->
 		@eventService.get({ id: @$routeParams.id }, (event) =>
+			@$scope.event_name = event.name
 			@$scope.date = event.date
 			@$scope.name = event.name
 			@$scope.description = event.description
@@ -46,6 +47,11 @@ class @EventEditController
 
 		@$scope.UpdateEvent = () =>
 			@eventService.update({ id: @$routeParams.id, name: @$scope.name, description: @$scope.description, date: @$scope.date })
+			date = moment(@$scope.date)
+			@$location.path "/calendar/month/#{date.month() + 1}/#{date.year()}"
+
+		@$scope.DeleteEvent = () =>
+			@eventService.delete(id: @$routeParams.id)
 			date = moment(@$scope.date)
 			@$location.path "/calendar/month/#{date.month() + 1}/#{date.year()}"
 

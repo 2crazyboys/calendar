@@ -19,6 +19,8 @@ eventService = app.factory "eventService", ["$resource", ($resource) ->
       @resource.save(event, callback)
     update: (event) ->
       @resource.update(event)
+    delete: (id) ->
+      @resource.delete(id)
     between: (from, to, callback) ->
       @resource.between {from: from, to: to}, callback
  

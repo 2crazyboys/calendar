@@ -1,5 +1,5 @@
 <div>
-  <p>Editing event {{name}}<p>
+  <p>Editing event {{event_name}}<p>
   <div>
 		<label>Date</label>
 		<input type="text" ng-model="date" />
@@ -9,4 +9,5 @@
 		<input type="text" ng-model="description" />
 	</div>
   <input type="button" value="Update event" ng-click="UpdateEvent()" />
+  <input type="button" value="Delete event" ng-click="DeleteEvent()" />
 </div>

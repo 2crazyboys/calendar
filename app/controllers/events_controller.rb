@@ -53,9 +53,8 @@ class EventsController < ApplicationController
   end
 
   #DELETE /events/:id
-  def delete
-    Event.find(params[:id])
-    event.destroy
+  def destroy
+    Event.find(params[:id]).destroy
     head 200
   end
 
