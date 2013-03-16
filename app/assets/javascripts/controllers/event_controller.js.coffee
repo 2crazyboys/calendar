@@ -21,8 +21,9 @@ class @EventModalController
 		@$scope.setModel = @setModel
 
 		@$scope.AddEvent = () =>
-			@calendarService.addEvent(@$scope.date, { name: @$scope.name, description: @$scope.description, date: @$scope.date })
-			@eventService.save(name: @$scope.name, description: @$scope.description, date: @$scope.date)
+			@eventService.save({ name: @$scope.name, description: @$scope.description, date: @$scope.date }, (event) =>
+				@calendarService.addEvent(event.date, { id: event.id, name: event.name, description: event.description, date: event.date })
+			)
 			
 	setModel: (data) ->
 		@$scope.$apply => 
@@ -31,3 +32,21 @@ class @EventModalController
 			@$scope.date = data.date
 
 EventModalController.$inject = ["$scope", "$location", "calendarService", "eventService"]
+
+class @EventEditController
+	constructor: (@$scope, @$location, @$routeParams, @calendarService, @eventService) ->
+		@define_methods()
+
+	define_methods: ->
+		@eventService.get({ id: @$routeParams.id }, (event) =>
+			@$scope.date = event.date
+			@$scope.name = event.name
+			@$scope.description = event.description
+		)
+
+		@$scope.UpdateEvent = () =>
+			@eventService.update({ id: @$routeParams.id, name: @$scope.name, description: @$scope.description, date: @$scope.date })
+			date = moment(@$scope.date)
+			@$location.path "/calendar/month/#{date.month() + 1}/#{date.year()}"
+
+EventEditController.$inject = ["$scope", "$location", "$routeParams", "calendarService", "eventService"]

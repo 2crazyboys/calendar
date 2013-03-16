@@ -39,10 +39,16 @@ class EventsController < ApplicationController
     render json: events
   end
 
+  #GET /events/:id
+  def show
+    event = Event.find params[:id]
+    render json: event
+  end
+
   #PUT /events/:id
   def update
     event = Event.find params[:id]
-    event.upate_attributes param[:event]
+    event.update_attributes params[:event]
     render json: event
   end
 

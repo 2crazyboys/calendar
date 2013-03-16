@@ -11,12 +11,14 @@ eventService = app.factory "eventService", ["$resource", ($resource) ->
          to:        { method: "GET", isArray: true  ,  params: { to_path:   "to", to: "@to" }},
          by_date:   { method: "GET", isArray: true  ,  params: { date_path: "date", date: "@date" }})
 
+    get: (id, callback) ->
+      @resource.get(id, callback)
     list: (callback) ->
       @resource.query(callback)
-    save: (event) ->
-      @resource.save event
+    save: (event, callback) ->
+      @resource.save(event, callback)
     update: (event) ->
-      @resource.update event
+      @resource.update(event)
     between: (from, to, callback) ->
       @resource.between {from: from, to: to}, callback
  

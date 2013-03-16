@@ -14,6 +14,9 @@ class @MonthController
   define_methods: (calendar) ->
     @$scope.showEvents = (day) =>
       @$location.path "/calendar/#{day}/events"
+
+    @$scope.editEvent = (event_id) =>
+      @$location.path "/calendar/events/#{event_id}"
     
     @$scope.weeks = () =>
       @calendar.weeks()

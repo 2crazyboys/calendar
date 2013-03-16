@@ -7,16 +7,9 @@ scheduler = angular.module "Scheduler", ["ngResource"], ["$routeProvider", ($rou
       '/calendar/:day/events',
       controller: EventListController 
       templateUrl: '/events/index.html')
+    .when(
+      '/calendar/events/:id',
+      controller: EventEditController 
+      templateUrl: '/events/edit.html')
     .otherwise( {redirectTo: "/calendar/month/#{moment().month() + 1 || 1}/#{moment().year()}" })
-    
-    # .when(
-    #   '/calendar/:day/events/:id', 
-    #   controller: EventEditController 
-    #   templateUrl: '/events/edit')
-  
-    # .when(
-    #   '/calendar/:month/month',
-    #   controller: MonthController
-    #   templateUrl: '/calendar/month/table'
-    # )
 ]
