@@ -13,6 +13,9 @@ class Day
   id: ()->
     @_id
 
+  day_only: () ->
+    24
+
   fdate: (format) ->
     format ?= @format
     @moment_date.format(format)

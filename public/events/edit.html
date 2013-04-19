@@ -1,13 +1,18 @@
-<div>
-  <p>Editing event {{event_name}}<p>
+<div class="centerCalendar">
+  <div class="titleBox">
+	<div class="arrowBack" onclick="history.go(-1);"><</div>
+	Editar Evento <span>- {{event_name}}</span>
+	</div>
   <div>
 		<label>Date</label>
-		<input type="text" ng-model="date" />
+		<input class="editEvent" type="text" ng-model="date" />
 		<label>Name</label>
-		<input type="text" ng-model="name" />
+		<input class="editEvent" type="text" ng-model="name" />
 		<label>Description</label>
-		<input type="text" ng-model="description" />
+		<input class="editEvent" type="text" ng-model="description" />
 	</div>
-  <input type="button" value="Update event" ng-click="UpdateEvent()" />
-  <input type="button" value="Delete event" ng-click="DeleteEvent()" />
+	<div class="btFooter">
+  		<input class="btn-primary" type="button" value="Update event" ng-click="UpdateEvent()" />
+  		<input class="btn-delete" type="button" value="Delete event" ng-click="DeleteEvent()" />
+	</div>
 </div>
