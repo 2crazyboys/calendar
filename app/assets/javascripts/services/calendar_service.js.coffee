@@ -4,7 +4,7 @@ app.factory "calendarService", () ->
 
 
 class Day
-  @format="YYYY-MM-DD" 
+  @format="YYYY-MM-DD"
   constructor: (@date, @format="YYYY-MM-DD") ->
     @_id = moment(@date).format(@format)
     @events = []
@@ -14,7 +14,7 @@ class Day
     @_id
 
   day_only: () ->
-    24
+    @moment_date.format("DD")
 
   fdate: (format) ->
     format ?= @format
@@ -53,7 +53,7 @@ class Week
     begin_of_week = moment().week(@week_of_year).startOf('week')
     for incr in [1..7]
       @days.push new Day(moment(begin_of_week).add('days',incr).toDate())
-  
+
   getDay: (date) ->
     _date = date
     if date instanceof Date
@@ -106,7 +106,7 @@ class Manager
 
   weeks: () ->
     console.log @page.weeks
-    @page.weeks 
+    @page.weeks
 
   first_day: () ->
     week = @page.first_week()
